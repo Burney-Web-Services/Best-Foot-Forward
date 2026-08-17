@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "bff": {
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "src/best_foot_forward/mcp_server.py"
+      ],
+      "env": {
+        "BFF_ROLE": "primary"
+      }
+    }
+  }
+}

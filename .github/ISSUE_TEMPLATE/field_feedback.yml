@@ -1,0 +1,68 @@
+name: Field feedback (coaches, recruiters, users)
+description: You used it, or you do this professionally, and something's wrong. No code required.
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        [CONTRIBUTORS.md](../blob/main/CONTRIBUTORS.md) asks for exactly this. The scoring model
+        in `/evaluate-job` is a heuristic — five dimensions, twenty points each — and it has
+        **never been validated against real outcomes.** The prep and document workflows have had
+        no professional review at all. If you do this for a living, you know more than the
+        heuristic does.
+
+  - type: dropdown
+    id: perspective
+    attributes:
+      label: Where you're coming from
+      options:
+        - Career coach
+        - Recruiter or hiring manager
+        - Someone who used it on a real search
+        - Designer
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: What this is about
+      options:
+        - Job-fit scoring (/evaluate-job)
+        - The generated resume
+        - The generated cover letter
+        - Interview or screening prep
+        - STAR story capture
+        - Practice interview
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What's wrong
+      description: >
+        Be specific and be blunt. "The tailored bullets read machine-made" is useful. "Great
+        project!" is kind but we can't act on it.
+      placeholder: |
+        The five scoring dimensions are weighted equally, but in practice gap risk sinks far more
+        candidates than domain fit does. A 75 with a hard-requirement miss is a worse bet than a
+        65 with none, and the score doesn't say that.
+    validations:
+      required: true
+
+  - type: textarea
+    id: better
+    attributes:
+      label: What would be better
+      description: If you know. If you only know that it's wrong, say that and file it anyway.
+
+  - type: checkboxes
+    id: data-check
+    attributes:
+      label: Confirm
+      options:
+        - label: Nothing above identifies a real candidate, employer, or posting I shouldn't share.
+          required: true

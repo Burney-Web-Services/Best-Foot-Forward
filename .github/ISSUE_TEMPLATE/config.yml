@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue
+    url: https://github.com/Burney-Web-Services/Best-Foot-Forward/blob/main/SECURITY.md
+    about: Don't open a public issue for a vulnerability — see SECURITY.md for how to report it privately.
+  - name: Setup help and command reference
+    url: https://github.com/Burney-Web-Services/Best-Foot-Forward/blob/main/docs/README.md
+    about: Docs index — command reference, architecture, data reference, and decision records.
+  - name: Email
+    url: mailto:pburney@gmail.com
+    about: If GitHub isn't where you live. A clear description of what went wrong is a contribution.

@@ -1,0 +1,31 @@
+{
+  "score": 82,
+  "summary": "Obroa-skai Analytics, Staff Platform Engineer, Cloud Developer Experience (remote, Core Worlds) — market intelligence SaaS, 2,000 employees; the Cloud DX team owns the outer loop of development for roughly 400 engineers, from code push to production. Scored 82/100, effectively tied with Scarif at the top of the pile. This is the closest role-shape match in the set: own and evolve CI/CD architecture, define paved paths so product teams ship without deep platform knowledge, build self-service and observable deployment tooling, own the Internal Developer Portal. Her four strongest bullets answer those responsibilities almost line for line — a decade-old CI/CD platform rebuilt through IaC with environment provisioning cut from days to under ninety minutes, self-service deployment tooling that dropped platform-team support from 40 requests a week to 8, reusable Terraform at 24-of-31-team adoption, and platform APIs plus pipelines spanning 200+ repositories at Corellian. Three gaps, all verified absent from the bullet library rather than merely unstated. Progressive delivery — canary deployments and automated rollbacks — is named in both 'Who You Are' and 'What You'll Do' and has no counterpart anywhere in her record, along with GitOps and trunk-based development. Production Go is required and Go appears in her skills list but in none of her 37 bullets, so it is listed rather than demonstrated. AI-assisted SDLC tooling appears three times, though in soft language ('embraces', 'passion for') rather than the documented-proficiency bar seen at Nar Shaddaa. Domain is a neutral factor: financial and market research is new to her, but a pure developer-experience mandate depends little on sector.",
+  "url": null,
+  "salary_min": null,
+  "salary_max": null,
+  "salary_currency": "USD",
+  "required_skills": [
+    "platform engineering",
+    "developer experience",
+    "kubernetes",
+    "python",
+    "ci/cd",
+    "golang",
+    "progressive delivery",
+    "gitops"
+  ],
+  "_not_yet_loadable": {
+    "note": "load_example_data.py's _load_application() has no field for pipeline stage or a contacts/interview row -- every tailored app loads at stage='application'. This is the real post-tailoring state from the sandbox session (screening-prep advanced it), kept here for a future loader enhancement -- not consumed as of BFF-2026-0814-OnboardingEvalFixes.",
+    "application_stage": "screen",
+    "contact": {
+      "name": "Toman Feyn",
+      "title": "Technical Recruiter",
+      "role": "recruiter",
+      "interview_date": "2026-08-21",
+      "interview_time": "10:00 AM PT",
+      "interview_stage": "screen",
+      "notes": "Video call, link to follow"
+    }
+  }
+}

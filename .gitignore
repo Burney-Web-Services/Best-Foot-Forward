@@ -1,0 +1,55 @@
+# ── Personal data — never commit ─────────────────────────────────────────────
+
+# All personal data lives in data/ (DB, JSON caches, memory)
+data/
+
+# In-project memory files — personal career context, PII
+memory/
+
+
+# Secondary exports 
+bff-profile.json
+bff-leads.json
+
+# Log files
+logs/
+
+# Generated .docx output
+*.docx
+
+# Machine-specific Claude Code settings (contains local paths)
+.claude/settings.local.json
+
+# Personal hooks (travel with the repo clone, not committed)
+.claude/hooks/**/local/
+
+# ── Node (web/mystery integration) ───────────────────────────────────────────
+web/mystery/app/
+web/mystery/server.pid
+web/mystery/server.log
+web/mystery/**/node_modules
+web/mystery/mystery6-src
+web/mystery/node_modules
+web/mystery/plugins/bff-chat/.chat-state.json
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+**/.DS_Store
+
+# ── Python ────────────────────────────────────────────────────────────────────
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+
+# Notes
+notes/
+
+# ── Editor/tool caches ─────────────────────────────────────────────────────
+# clj-kondo/LSP analysis cache — machine-local, references the real checkout's
+# absolute path (found tracked-in-error 2026-08-16, contained a stale path
+# from this project's old name/location).
+.lsp/
+

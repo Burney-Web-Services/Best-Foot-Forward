@@ -1,0 +1,20 @@
+{
+  "score": 58,
+  "summary": "Theed Agent Systems, Engineering Manager, Observe/Evaluation (hybrid, Theed HQ) — a management role leading a 3-5 person team owning observability and evaluation tooling for a voice-AI-agent platform. Scored 58/100. The functional shape lines up better than the title alone suggests: 'systems that give visibility into how agents are behaving in production' and 'frameworks that let the org systematically evaluate quality over time, rather than relying on ad hoc checks' both describe work she has already done at scale — the S3/Athena logging platform that extended retention from weeks to years, the observability dashboards that cut production issue detection time by more than 60%, and the post-incident review rebuild that gave every follow-up a named owner. AWS with Lambda is a direct match; SQS and Kinesis specifically are unstated anywhere in her library. Two gaps decide it. First, hands-on TypeScript is required alongside Python and is entirely absent from her skills — she has JavaScript and Go, not TypeScript. Second, and more structural: this is a people-management role asking for '1-3 years managing a team,' a bar she clears many times over in total tenure (five years as Director of a twenty-person org, HoloNet 2011-2016) but not in recency — her present decade is IC-shaped, with mentorship and incident command but no direct reports. The AI-voice-agent domain itself is new to her, though the posting's 'nice to have' framing for MCP and agentic-application experience softens that into a genuine unknown rather than a stated bar.",
+  "url": null,
+  "salary_min": 190000,
+  "salary_max": 225000,
+  "salary_currency": "USD",
+  "required_skills": [
+    "python",
+    "typescript",
+    "aws",
+    "lambda",
+    "sqs",
+    "kinesis",
+    "observability",
+    "people management",
+    "evaluation tooling",
+    "mcp"
+  ]
+}

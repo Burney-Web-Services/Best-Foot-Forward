@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BFF Avatar — State Demo</title>
+<style>
+  :root {
+    --avatar-teal: #2dd4bf;
+    --avatar-teal-soft: rgba(45, 212, 191, 0.35);
+    --bg: #1a1a2e;
+    --panel: #232338;
+    --text: #e8e8ef;
+    --text-dim: #9d9db0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- Avatar ---------- */
+
+  .avatar {
+    --avatar-size: clamp(220px, 40vw, 320px);
+    position: relative;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar__glow {
+    position: absolute;
+    inset: -10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--avatar-teal-soft) 0%, transparent 70%);
+    z-index: 0;
+    animation: avatar-glow-idle 4s ease-in-out infinite;
+  }
+
+  .avatar[data-state="speaking"] .avatar__glow {
+    animation-name: avatar-glow-speaking;
+    animation-duration: 0.9s;
+  }
+  .avatar[data-state="listening"] .avatar__glow {
+    animation-name: avatar-glow-listening;
+    animation-duration: 3s;
+  }
+  .avatar[data-state="thinking"] .avatar__glow {
+    animation-name: avatar-glow-thinking;
+    animation-duration: 2.5s;
+  }
+
+  @keyframes avatar-glow-idle {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 0.55; transform: scale(1.04); }
+  }
+  @keyframes avatar-glow-speaking {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.08); }
+  }
+  @keyframes avatar-glow-listening {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50%      { opacity: 0.6;  transform: scale(1.02); }
+  }
+  @keyframes avatar-glow-thinking {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 0.65; transform: scale(1.05); }
+  }
+
+  .avatar__float {
+    position: relative;
+    width: 75%;
+    height: 75%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: avatar-bob 3.2s ease-in-out infinite;
+  }
+
+  @keyframes avatar-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  .avatar__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Listening: sonar rings */
+  .avatar__ring {
+    position: absolute;
+    inset: 6%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .avatar[data-state="listening"] .avatar__ring { opacity: 1; }
+
+  .avatar__ring span {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--avatar-teal);
+    animation: ring-pulse 1.8s ease-out infinite;
+  }
+  .avatar__ring span:nth-child(1) { animation-delay: 0s; }
+  .avatar__ring span:nth-child(2) { animation-delay: 0.6s; }
+  .avatar__ring span:nth-child(3) { animation-delay: 1.2s; }
+
+  @keyframes ring-pulse {
+    0%   { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.45); opacity: 0; }
+  }
+
+  /* Speaking: equalizer bars */
+  .avatar__bars {
+    position: absolute;
+    bottom: -4%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: calc(var(--avatar-size) * 0.09);
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .avatar[data-state="speaking"] .avatar__bars { opacity: 1; }
+
+  .avatar__bars span {
+    width: 4px;
+    height: 100%;
+    border-radius: 2px;
+    background: var(--avatar-teal);
+    transform-origin: bottom center;
+    animation: bar-bounce 0.6s ease-in-out infinite;
+  }
+  .avatar__bars span:nth-child(1) { animation-delay: 0s;     animation-duration: 0.5s; }
+  .avatar__bars span:nth-child(2) { animation-delay: 0.12s;  animation-duration: 0.65s; }
+  .avatar__bars span:nth-child(3) { animation-delay: 0.24s;  animation-duration: 0.55s; }
+  .avatar__bars span:nth-child(4) { animation-delay: 0.12s;  animation-duration: 0.7s; }
+  .avatar__bars span:nth-child(5) { animation-delay: 0s;     animation-duration: 0.6s; }
+
+  @keyframes bar-bounce {
+    0%, 100% { transform: scaleY(0.25); }
+    50%      { transform: scaleY(1); }
+  }
+
+  /* Thinking: rotating dots */
+  .avatar__spinner {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+    animation: spinner-rotate 1.8s linear infinite;
+  }
+  .avatar[data-state="thinking"] .avatar__spinner { opacity: 1; }
+
+  .avatar__spinner span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--avatar-teal);
+    margin: -4px 0 0 -4px;
+  }
+  .avatar__spinner span:nth-child(1) { transform: rotate(0deg) translateX(calc(var(--avatar-size) * 0.46)); }
+  .avatar__spinner span:nth-child(2) { transform: rotate(120deg) translateX(calc(var(--avatar-size) * 0.46)); }
+  .avatar__spinner span:nth-child(3) { transform: rotate(240deg) translateX(calc(var(--avatar-size) * 0.46)); }
+
+  @keyframes spinner-rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .avatar__glow,
+    .avatar__float,
+    .avatar__ring span,
+    .avatar__bars span,
+    .avatar__spinner {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+
+  /* ---------- Controls ---------- */
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: var(--panel);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    width: min(90vw, 360px);
+  }
+
+  .state-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  button {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+
+  button:hover { border-color: var(--avatar-teal); color: var(--text); }
+
+  button.active {
+    background: var(--avatar-teal);
+    border-color: var(--avatar-teal);
+    color: #0b2320;
+    font-weight: 600;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  label.auto-cycle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+  <h1>BFF Avatar — State Demo</h1>
+
+  <div class="avatar" data-state="idle">
+    <div class="avatar__glow"></div>
+    <div class="avatar__ring"><span></span><span></span><span></span></div>
+    <div class="avatar__spinner"><span></span><span></span><span></span></div>
+    <div class="avatar__float">
+      <img class="avatar__img" src="bff-logo-transparent.png" alt="BFF avatar" />
+    </div>
+    <div class="avatar__bars"><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="controls">
+    <div class="state-buttons">
+      <button data-set-state="idle" class="active">Idle</button>
+      <button data-set-state="speaking">Speaking</button>
+      <button data-set-state="listening">Listening</button>
+      <button data-set-state="thinking">Thinking</button>
+    </div>
+    <label class="auto-cycle">
+      <input type="checkbox" id="auto-cycle" />
+      Auto-cycle every 3s
+    </label>
+    <p class="hint">Keys 1&ndash;4 also switch state.</p>
+  </div>
+
+<script>
+  const AVATAR_STATES = ['idle', 'speaking', 'listening', 'thinking'];
+  const avatarEl = document.querySelector('.avatar');
+  const buttons = document.querySelectorAll('[data-set-state]');
+  const autoCycleCheckbox = document.getElementById('auto-cycle');
+  let state = 'idle';
+  let autoCycleTimer = null;
+
+  function setState(next) {
+    if (!AVATAR_STATES.includes(next) || next === state) return;
+    state = next;
+    avatarEl.dataset.state = next;
+    buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setState === next));
+  }
+
+  buttons.forEach(btn => btn.addEventListener('click', () => setState(btn.dataset.setState)));
+
+  document.addEventListener('keydown', (e) => {
+    const idx = Number(e.key) - 1;
+    if (idx >= 0 && idx < AVATAR_STATES.length) setState(AVATAR_STATES[idx]);
+  });
+
+  autoCycleCheckbox.addEventListener('change', () => {
+    if (autoCycleCheckbox.checked) {
+      autoCycleTimer = setInterval(() => {
+        const nextIdx = (AVATAR_STATES.indexOf(state) + 1) % AVATAR_STATES.length;
+        setState(AVATAR_STATES[nextIdx]);
+      }, 3000);
+    } else {
+      clearInterval(autoCycleTimer);
+    }
+  });
+</script>
+
+</body>
+</html>

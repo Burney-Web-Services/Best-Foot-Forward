@@ -1,0 +1,10 @@
+# Codex project configuration. Codex loads this only after the repository is
+# marked trusted. `cwd` is relative to this `.codex` directory.
+
+[mcp_servers.bff]
+command = "uv"
+args = ["run", "python", "src/best_foot_forward/mcp_server.py"]
+cwd = ".."
+env = { BFF_ROLE = "primary" }
+startup_timeout_sec = 30.0
+tool_timeout_sec = 60.0

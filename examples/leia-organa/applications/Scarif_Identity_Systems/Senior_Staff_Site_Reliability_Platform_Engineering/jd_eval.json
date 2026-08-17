@@ -1,0 +1,23 @@
+{
+  "score": 81,
+  "summary": "Scarif Identity Systems, Senior / Staff Site Reliability, Platform Engineering (hybrid) — identity security SaaS for enterprises and government, platform team building shared infrastructure that internal product teams consume. Best overall fit of the pile at 81/100. The role is written as platform-as-a-product for internal customers, which is the exact shape of her career: reusable Terraform at 24-of-31-team adoption, an 18-month Kubernetes standardization, self-service deployment tooling that cut platform support load from 40 requests a week to 8, and a CI/CD rebuild that took environment provisioning from days to under ninety minutes. Go and Python, AWS depth, Kubernetes-as-a-platform, PostgreSQL and MySQL all line up directly. The domain is also the closest match she will find: her deepest single thread is identity — an OAuth2 framework grown 14 to 63 services and a SAML/SSO migration covering 2,800 employees and 11,000 partner accounts — though built as internal infrastructure rather than as a commercial product, a distinction worth stating plainly rather than blurring. Real gaps, all with zero library evidence: event-driven architecture and message queues (Kafka, RabbitMQ, NATS, named in both responsibilities and qualifications), service mesh (Istio, Envoy), and GitLab CI plus ArgoCD specifically, against her GitHub Actions and Jenkins. Observability is a vocabulary gap more than a substance one — she has the practice and OpenSearch, not the named Prometheus/Grafana stack. Level is the open question: the posting bands Senior-or-Staff, which is flat at best against her current Staff title and the Principal conversation in progress.",
+  "url": null,
+  "salary_min": null,
+  "salary_max": null,
+  "salary_currency": "USD",
+  "required_skills": [
+    "platform engineering",
+    "technical leadership",
+    "observability",
+    "kubernetes",
+    "python",
+    "mysql",
+    "ci/cd",
+    "aws",
+    "golang",
+    "gcp",
+    "azure",
+    "kafka",
+    "datadog"
+  ]
+}

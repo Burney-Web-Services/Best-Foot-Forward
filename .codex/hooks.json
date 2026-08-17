@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/track_application.py\"",
+            "timeout": 30,
+            "statusMessage": "Tracking generated application"
+          }
+        ]
+      }
+    ]
+  }
+}

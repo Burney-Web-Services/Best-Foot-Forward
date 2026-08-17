@@ -1,0 +1,42 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        # Pinned exactly: setup-uv stopped publishing floating major tags after v7,
+        # so there is no `@v10` to track.
+        uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        # Only the dev group. tests/conftest.py stubs faster-whisper, pyannote and
+        # torch, so the `audio` group (several GB of ML wheels) is not needed to run
+        # the suite — installing it would multiply CI time for no extra coverage.
+        run: uv sync --group dev
+
+      - name: Run tests
+        run: uv run pytest -q

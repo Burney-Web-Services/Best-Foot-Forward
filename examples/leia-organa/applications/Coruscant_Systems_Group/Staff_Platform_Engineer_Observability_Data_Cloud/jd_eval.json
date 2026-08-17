@@ -1,0 +1,20 @@
+{
+  "score": 62,
+  "summary": "Coruscant Systems Group, Staff Platform Engineer, Observability & Data Cloud (remote, US) — infrastructure/observability role reporting to the Director of Infrastructure, owning the org's GCP migration end to end. Scored 62/100. Role and level match closely: 'own the GCP footprint,' 'lead incident response,' and 'mentor engineers on platform reliability' mirror her current Staff Platform Engineer scope at The Resistance almost line for line, and her tenure — roughly a decade in platform-engineering roles, most recently owning a 30+-team internal developer platform — clears the posting's 6-year bar many times over. The technical picture is split. Kubernetes and Terraform are both named requirements and both are extensively demonstrated: the eighteen-month ECS-to-Kubernetes migration she led, the reusable Terraform platform adopted by 24 of 31 engineering teams with drift cut from roughly 60% of workspaces to under 10%. But four of the posting's other named requirements have zero counterpart anywhere in her bullet library or skills. GCP: her cloud skill group is AWS-only (ECS, Lambda, S3, Athena, CloudFront, Cognito, CloudWatch) with no GCP service named anywhere. ArgoCD and GitOps: her CI/CD tooling is GitHub Actions and Jenkins, not GitOps-style delivery. Prometheus/Grafana: her observability work is real and metric-backed — the S3/Athena logging platform that extended retention from weeks to years, the dashboards that cut production issue detection time by more than 60% — but built AWS-native, not on the Prometheus/Grafana stack the posting names specifically. Snowflake administration: her data skill group is MySQL, Redis, PostgreSQL, OpenSearch, DocumentDB; no data-warehouse administration bullet exists at all. The posting frames three of these — GCP ownership, ArgoCD expertise, Snowflake administration — as day-one hard requirements, not areas to grow into, which is what keeps the score down despite a genuinely strong platform-engineering foundation underneath.",
+  "url": null,
+  "salary_min": 185000,
+  "salary_max": 225000,
+  "salary_currency": "USD",
+  "required_skills": [
+    "gcp",
+    "argocd",
+    "gitops",
+    "prometheus",
+    "grafana",
+    "snowflake",
+    "kubernetes",
+    "terraform",
+    "platform engineering",
+    "observability"
+  ]
+}

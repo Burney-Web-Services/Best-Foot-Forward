@@ -1,0 +1,430 @@
+# Best Foot Forward — Architecture Reference
+
+Diagrams use [Mermaid](https://mermaid.js.org/) syntax. Render in GitHub, VS Code (Mermaid Preview extension), or at [mermaid.live](https://mermaid.live).
+
+---
+
+## Database Schema
+
+All persistent data lives in `data/best_foot_forward.db`. JSON files in `data/` are generated caches — edit via SQLite, then run `export_cache.py`.
+
+```mermaid
+erDiagram
+    contact {
+        int id PK
+        text name
+        text phone
+        text email
+        text location
+    }
+
+    education {
+        int id PK
+        text institution
+        text location
+        text degree
+        int sort_order
+    }
+
+    employers {
+        int id PK
+        text name
+        text location
+        text start_date
+        text end_date
+        int sort_order
+        text notes
+    }
+
+    bullets {
+        text id PK
+        int employer_id FK
+        text role
+        text text
+        text use_when
+    }
+
+    bullet_tracks {
+        text bullet_id FK
+        text track
+    }
+
+    bullet_themes {
+        text bullet_id FK
+        text theme
+    }
+
+    skills {
+        text id PK
+        text label
+        text content
+    }
+
+    skill_tracks {
+        text skill_id FK
+        text track
+    }
+
+    skill_themes {
+        text skill_id FK
+        text theme
+    }
+
+    jds {
+        int id PK
+        text company
+        text role
+        text file_path
+        int score
+        text evaluated_at
+        int salary_min
+        int salary_max
+        text source
+        text lead_status
+        text lead_decided_at
+        text decline_reason
+    }
+
+    jd_required_skills {
+        int id PK
+        int jd_id FK
+        text skill_label
+        text skill_id FK
+    }
+
+    applications {
+        int id PK
+        int jd_id FK
+        text status
+        text stage
+        text applied_at
+        text concluded_at
+        text resume_summary
+        text notes
+        text follow_up_date
+        int follow_up_count
+    }
+
+    application_bullets {
+        int id PK
+        int application_id FK
+        text bullet_id FK
+        int position
+        text text_override
+    }
+
+    application_skills {
+        int id PK
+        int application_id FK
+        text skill_id FK
+        int position
+        text content_override
+    }
+
+    application_letter_paragraphs {
+        int id PK
+        int application_id FK
+        int position
+        text body
+    }
+
+    contacts {
+        int id PK
+        int jd_id FK
+        text name
+        text title
+        text role
+        text interview_date
+        text interview_stage
+        text email
+        text notes
+    }
+
+    stories {
+        int id PK
+        int employer_id FK
+        text title
+        text situation
+        text task
+        text action
+        text result
+        text readiness
+        text short_version
+        text outline
+        text lp_tags
+        text source_type
+        text source_file
+        text raw_transcript
+    }
+
+    story_themes {
+        int story_id FK
+        text theme
+    }
+
+    story_bullets {
+        int story_id FK
+        text bullet_id FK
+    }
+
+    story_interview_use {
+        int id PK
+        int story_id FK
+        int application_id FK
+        text question_prompt
+        text used_at
+        text outcome_notes
+    }
+
+    assessments {
+        int id PK
+        int application_id FK
+        text type
+        text description
+        text deadline
+        text submitted_at
+        text url
+        text submission_url
+        text notes
+    }
+
+    employers ||--o{ bullets : "has"
+    bullets ||--o{ bullet_tracks : "tagged"
+    bullets ||--o{ bullet_themes : "themed"
+    skills ||--o{ skill_tracks : "tagged"
+    skills ||--o{ skill_themes : "themed"
+    jds ||--o{ jd_required_skills : "requires"
+    skills ||--o{ jd_required_skills : "matched to"
+    jds ||--o{ applications : "generates"
+    jds ||--o{ contacts : "has"
+    applications ||--o{ application_bullets : "uses"
+    applications ||--o{ application_skills : "includes"
+    applications ||--o{ application_letter_paragraphs : "has"
+    applications ||--o{ assessments : "has"
+    applications ||--o{ story_interview_use : "logged in"
+    bullets ||--o{ application_bullets : "referenced by"
+    skills ||--o{ application_skills : "referenced by"
+    employers ||--o{ stories : "context for"
+    stories ||--o{ story_themes : "themed"
+    stories ||--o{ story_bullets : "linked to"
+    stories ||--o{ story_interview_use : "used in"
+    bullets ||--o{ story_bullets : "supports"
+```
+
+---
+
+## Data Layer
+
+SQLite is the only source of truth. Everything else is generated.
+
+```mermaid
+flowchart TD
+    subgraph db ["SQLite — data/best_foot_forward.db"]
+        B[bullets + tracks + themes]
+        SK[skills + tracks + themes]
+        E[employers]
+        CE[contact + education]
+        JA[jds + applications\n+ related tables]
+    end
+
+    subgraph caches ["JSON read caches — data/ — generated by export_cache.py"]
+        C1[_bullets.json]
+        C2[_bullets_conditional.json]
+        C3[_skills.json]
+        C4[_employers.json]
+    end
+
+    subgraph session ["Per-session scratch — data/session/ — ephemeral, gitignored"]
+        S1[resume_data.py]
+        S2[letter_data.py]
+        S3[prep_data.py]
+        S4[star_data.py]
+    end
+
+    B --> |export_cache.py| C1 & C2
+    SK --> |export_cache.py| C3
+    E --> |export_cache.py| C4
+
+    C1 & C2 & C3 --> |Claude + Haiku reads at session start| S1
+    S1 --> GEN[generate_resume.py]
+    CE --> |queries contact + education| GEN
+    GEN --> DOCX[.docx resume]
+
+    S2 --> GENL[generate_letter.py]
+    DOCX --> GENL
+    GENL --> DOCXL[.docx cover letter]
+```
+
+---
+
+## Logseq Graph (pipeline master)
+
+The company / application / prep / notes layer is mirrored to a **Logseq Markdown
+graph** at `data/BestFootForward/` (registered as the `bff` graph in
+`markdown-graph-mcp`). See [ADR-0008](adr/0008-logseq-graph-pipeline-master.md).
+
+- **Layout:** one entity page per company (`{Company}`, `mistoria-reference:: org:`),
+  with namespaced children `{Company}/{Role}/Application|Prep|Notes` and a
+  company-level `{Company}/Notes`. Each Application page carries the pipeline
+  fields as `key:: value` properties (`status`, `stage`, `score`, dates as
+  `[[YYYY/MM/DD]]`, `bff-jd-id::`/`bff-application-id::`) and a `## Related`
+  section linking its siblings. Generated artifacts live in the graph's `assets/`.
+- **Masters:** Markdown is master for the pipeline narrative; SQLite stays master
+  for the library (bullets/skills/stories/employers → `.docx` + reporting) and is
+  a rebuildable index over the pipeline.
+- **Sync loop:**
+  - `export_graph.py` — DB → pages (`--only '<Company>'` for one company; run as
+    the last step of tailoring and on rejection).
+  - `reconcile_graph.py` — hand-edited page properties → DB (column-UPSERT keyed
+    on `bff-jd-id`/`bff-application-id`). Run before DB-backed reports.
+  - `generate_home.py` — regenerates the `Home` + `Leads Dashboard` pages (and,
+    if `BFF_SEVO_GLANCE` is set, a cross-graph pulse into a personal hub page).
+- **Rule:** never `rm data/BestFootForward/pages/*.md` before an export —
+  `export_graph` overwrites only the pages it generates (by title); a wipe deletes
+  hand-authored Notes and ported reference pages.
+
+## Tailoring Pipeline
+
+The core workflow from JD intake through document generation.
+
+```mermaid
+flowchart TD
+    A[JD arrives\npasted text · URL · file path] --> B[evaluate-job]
+
+    subgraph eval ["evaluate-job"]
+        B --> C[Read _bullets.json\n+ _skills.json]
+        C --> D[Haiku subagent:\nScore 0–100 across\n5 dimensions]
+        D --> E[(Persist score\nto jds table)]
+    end
+
+    E --> F{Pursue?}
+    F -- no --> Z[Done]
+    F -- yes --> G[resume-tailor]
+
+    subgraph tailor ["resume-tailor"]
+        G --> H[Suggest source\nfrom prior apps]
+        H --> I[Ask 3–5 targeted\ngap questions]
+        I --> J[Haiku:\nSelect + assemble bullets\nfrom full library]
+        J --> K[Write data/session/resume_data.py]
+    end
+
+    K --> L[generate_resume.py]
+
+    subgraph generate ["generate"]
+        L --> M[Read resume_data.py\n+ SQLite contact + education]
+        M --> N[.docx resume]
+    end
+
+    N --> O[PostToolUse hook:\ntrack_application.py]
+    O --> P[(Insert applications row\nstatus=applied)]
+    P --> Q[scan_jds.py]
+    Q --> R[(Update jd_required_skills\ngap tracking)]
+    R --> S[generate_letter.py → .docx cover letter]
+
+    S --> T[Interview scheduled?]
+    T -- yes --> U[interview-prep\nor screening-prep]
+    T -- no --> Z2[Done]
+```
+
+---
+
+## Gap Tracking
+
+How the system identifies skill gaps between your profile and the roles you pursue.
+
+```mermaid
+flowchart TD
+    A[JD evaluated] --> B[scan_jds.py\nparses required skills from JD text]
+    B --> C[(jd_required_skills table\nraw skill label + matched skill_id)]
+
+    D[_skills.json\nyour skills library] --> E[cli.py skills report]
+    C --> E
+
+    E --> F[Frequency table:\nhow often each skill\nappears in evaluated JDs]
+    F --> G{In your library?}
+    G -- yes --> H[Strength — how well covered]
+    G -- no --> I[Gap — candidate for development]
+
+    I --> J[Prioritize by\nfrequency across all JDs]
+    J --> K[Focus areas for skill development]
+```
+
+---
+
+## Secondary Machine Sync
+
+Used when a sourcing collaborator (a collaborator today; a second machine of your own eventually) evaluates job leads on a separate
+machine. Runs over the `best-foot-forward` MCP server — the reasoning stays in the collaborator's own
+Claude session; only the grounding data (in) and the lead write-back (out) travel over MCP. A local
+grounding cache + a local `bff-leads` graph make the whole flow offline-tolerant.
+
+```mermaid
+flowchart LR
+    subgraph primary ["Primary Machine"]
+        MCP["best-foot-forward MCP server\n--serve 8765 · bearer auth"]
+        P8[(jds table\nlead_status=pending)]
+        P9[Web Leads report · Leads Dashboard\nget_active_leads · cli leads]
+        P10[Review + approve → /resume-tailor]
+        MCP --- P8
+        P8 --> P9 --> P10
+    end
+
+    subgraph secondary ["Secondary Machine (BFF_ROLE=secondary)"]
+        S1["/secondary → get_profile_bundle"]
+        S2[local grounding caches\n_bullets* · _skills · user_profile]
+        S3[evaluate-job]
+        S4{MCP reachable?}
+        S5[sync_leads — live push]
+        S6["#Lead page (pushed:: false)\nlocal bff-leads graph"]
+        S7["/push-leads or /cleanup"]
+        S1 --> S2 --> S3 --> S4
+        S4 -- online --> S5
+        S4 -- offline --> S6 --> S7 --> S5
+    end
+
+    S1 -. "get_profile_bundle" .-> MCP
+    S5 -. "sync_leads (source=alex)" .-> MCP
+```
+
+### How it works
+
+1. **Grounding (in).** `/secondary` calls `get_profile_bundle` and writes the primary's per-track
+   bullet caches, skills, employers, and `user_profile.md` locally. Scoring is calibrated to the
+   primary's live inventory and survives a mid-session disconnect. `get_bullets` / `get_skills` /
+   `get_career_profile` remain available for live reads.
+2. **Evaluate.** `evaluate-job` scores against the local caches (identical online or offline).
+3. **Lead write-back (out).** Online, each lead pushes immediately via `sync_leads`; offline, it
+   queues as a `#Lead` page in the local `bff-leads` graph and `/push-leads` drains the queue when
+   the connection returns. Dedupe is `(company, role)` — new leads insert, re-scored ones update.
+4. **Provenance.** `_handle(msg, source=…)` threads the *authenticated* bearer-token identity into
+   `_sync_leads` → `insert_leads(leads, source=…)`, so a lead lands as `source='alex'` (not a generic
+   `'secondary'` or client-supplied field). This is what makes multi-secondary provenance trustworthy.
+5. **Transport + exposure.** Streamable HTTP at `POST /mcp` (bearer auth; the server refuses to bind
+   without a token registry). Bind stays `0.0.0.0` but the port is reached only over the LAN / Tailscale
+   overlay with ACLs — tokens are a second layer, not a substitute for keeping it off the public net.
+   Token registry: gitignored `data/mcp_tokens.json`, minted via `scripts/mint_token.py --name <who>`.
+
+> The pre-MCP flow hand-carried a `bff-profile.json` bundle out and a `bff-leads.json` bundle back via
+> four slash commands (`export-to-secondary` / `import-from-primary` / `export-to-primary` /
+> `import-from-secondary`). Those commands and their scripts were removed once the MCP path + local
+> `bff-leads` graph fully covered both the online and offline cases.
+
+### Planned — public lead intake (Lovable form, non-Claude sourcers)
+
+Status: not started. Target: weekend of 2026-07-18/19.
+
+For sourcers who don't run Claude Code at all — no login, paste a link, done.
+Deliberately pull-based so BFF's DB and MCP server stay unexposed to the public internet; the only
+public-facing surface is Supabase, which is Lovable's job to secure, not ours.
+
+- **Data model** (Supabase, Lovable's default backend) — table `leads_intake`: `id`, `source_name`,
+  `url`, `pasted_text`, `note`, `status` (default `'new'`), `created_at`. No auth system — each
+  sourcer gets a per-person magic link (`/intake/<sourcer>`) that pre-fills `source_name` via route
+  param.
+- **Bridge into BFF** — a small `utils/import_intake.py`, run on demand, pulls new rows from
+  Supabase's auto-generated REST API and inserts stub `jds` rows (`source=<source_name>`,
+  `lead_status='pending'`, `url=<url>`). Reuses `insert_leads()` (the same insert/UPSERT the
+  `sync_leads` MCP tool uses), just sourced from a Supabase table instead of the MCP call.
+- Secondary goal: the form itself is a small enough build to double as hands-on experience with
+  whatever no-code/low-code platform you pick — worth something on its own if you're interviewing
+  in that space.

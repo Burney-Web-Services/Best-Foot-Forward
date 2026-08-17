@@ -1,0 +1,85 @@
+name: Bug report
+description: Something broke, or behaved differently than the docs say it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you paste anything:** this project's whole job is holding real career data.
+        Scrub company names, contact details, salaries, and file paths from your machine before
+        posting. A redacted report is still a good report.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you run, and what did it do?
+      placeholder: |
+        Ran /evaluate-job with a pasted job description. It scored the role but no `jds` row
+        was created, so /resume-tailor said the job had never been evaluated.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: If you can get it to happen twice, the exact sequence is the most useful thing in this form.
+      placeholder: |
+        1. /onboard, chose the Leia Organa sample data
+        2. /evaluate-job with the text below
+        3. /resume-tailor
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output
+      description: Full traceback or agent output, if there was one. This is rendered as code, no backticks needed.
+      render: text
+
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Which coding agent
+      options:
+        - Claude Code
+        - Codex
+        - Gemini
+        - Antigravity
+        - Other (say which below)
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Output of `python3 --version`
+      placeholder: "3.12.13"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Ubuntu 24.04 / macOS 15.2 / Windows 11 + WSL2"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: data-check
+    attributes:
+      label: Confirm
+      options:
+        - label: I've removed personal and employer-identifying data from everything above.
+          required: true

@@ -1,0 +1,26 @@
+{
+  "score": 76,
+  "summary": "Nar Shaddaa Exchange Group, Staff Platform Engineer, Nar Shaddaa Markets (remote within Hutt Space) — real-money prediction markets and sports betting, part of a 9,000-employee betting and collectibles group. The closest role/level match seen so far: exact title, IC scope, \"set technical direction, design durable platform abstractions, lead cross-team initiatives, mentor while staying hands-on,\" against an 8-year bar she clears more than twice over. Stack lines up nearly one-to-one — AWS, Kubernetes, Terraform, Python, Go, CI/CD, observability, incident management, security and compliance. Three gaps. First and decisive: expert proficiency with AI coding collaborators (Claude Code, Cursor, Copilot) is named five separate times across the role overview, responsibilities and qualifications, framed as the team's defining engineering culture and requiring \"documented ability\" — she has zero evidence of any kind. Second, Java is named as a required language alongside Python and is absent from her library. Third, real-money trading, iGaming and the surrounding regulatory regime are wholly outside a career spent in freight logistics, ecommerce, civic tech and internal platforms. Scored 76/100. The strongest structural fit in the pile, gated on one requirement that cannot be honestly claimed and one that is a straightforward absence; the domain also carries a values question about gambling that is the seeker's to answer, not a scoring matter.",
+  "url": null,
+  "salary_min": null,
+  "salary_max": null,
+  "salary_currency": "USD",
+  "required_skills": [
+    "platform engineering",
+    "incident response",
+    "observability",
+    "kubernetes",
+    "terraform",
+    "python",
+    "ci/cd",
+    "aws",
+    "golang"
+  ],
+  "_not_yet_loadable": {
+    "note": "load_example_data.py's _load_application() always inserts jds.lead_status='pending' and has no field for a decline decision. These are the real triage_lead.py outcome from the sandbox session, kept here so a future loader enhancement can carry it -- not consumed by the loader as of BFF-2026-0814-OnboardingEvalFixes.",
+    "lead_status": "declined",
+    "decline_category": "domain",
+    "decline_reason": "Real-money betting isn't an industry I want my name next to, sportsbook specifically more than prediction markets. Values call, not a skills one — the technical fit is close but I'd pass regardless of how the AI-tooling and Java gaps shook out.",
+    "lead_decided_at": "2026-08-14"
+  }
+}

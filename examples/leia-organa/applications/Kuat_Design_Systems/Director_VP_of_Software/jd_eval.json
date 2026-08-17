@@ -1,0 +1,23 @@
+{
+  "score": 65,
+  "summary": "Kuat Design Systems, Director/VP of Software (hybrid, Kuat City or Fondor Station) — an executive engineering role at a Series A hardware-collaboration-platform startup (Git-friendly CAD/ECAD tooling), reporting to the CTO and overseeing roughly five technical team leads. Scored 65/100, the best fit in the pile for the specific combination the posting asks for: 'stay close enough to the architecture and codebase to make sound calls and earn your engineers' trust' alongside real ownership of product-development strategy. She genuinely has both halves — five years as Director of Engineering leading a twenty-person org (HoloNet, 2011-2016) plus a decade-plus of Staff/Principal-level architectural ownership since. Infrastructure overlap is strong and specific: Kubernetes, Docker, GitHub Actions, PostgreSQL and AWS all appear directly in her library, and Go is a named skill. Two real gaps. First, the web stack itself — TypeScript, Vue, Rust — is entirely absent from her library; the posting's explicit 'you don't need to check every box' framing for the stack section makes this a softer bar than at Nar Shaddaa or Chandrila, but it's still a genuine absence, not a stated fluency. Second, and larger: the domain is hardware/CAD/EDA collaboration tooling, a field with zero exposure anywhere in her record — every year of her platform and infrastructure career has been internal-developer-facing software, never circuit design, PCB rendering, or the ECAD format ecosystem this role is built around. Management currency reads the same as elsewhere in the pile — real depth (ten years combined between two prior roles) but a decade stale — though the posting's own framing ('mostly the people and the plan,' hands-on coding described as 'a plus, not a requirement') is more forgiving of that gap than a hands-on IC role would be. No salary is listed.",
+  "url": null,
+  "salary_min": null,
+  "salary_max": null,
+  "salary_currency": "USD",
+  "required_skills": [
+    "go",
+    "typescript",
+    "vue",
+    "rust",
+    "docker",
+    "kubernetes",
+    "github actions",
+    "postgresql",
+    "aws",
+    "playwright",
+    "ci/cd",
+    "technical leadership",
+    "people management"
+  ]
+}

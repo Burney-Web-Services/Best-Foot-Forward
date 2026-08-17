@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 src/best_foot_forward/utils/db_query.py *)"
+    ],
+    "deny": []
+  }
+}

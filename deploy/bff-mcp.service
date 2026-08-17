@@ -1,0 +1,28 @@
+# Reference copy of the BFF MCP HTTP/SSE systemd --user unit (Toussaint master).
+# Paths are Toussaint-specific; adjust for another host. Install with:
+#
+#   cp deploy/bff-mcp.service ~/.config/systemd/user/bff-mcp.service
+#   loginctl enable-linger "$USER"          # run without an active login (start on boot)
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now bff-mcp.service
+#   systemctl --user status bff-mcp.service
+#   journalctl --user -u bff-mcp.service -f  # follow logs
+#
+# Requires a minted token first (scripts/mint_token.py) — the server exits 1 if
+# data/mcp_tokens.json is empty, and the unit caps restarts so that shows as failed.
+
+[Unit]
+Description=BFF MCP server (HTTP/SSE) — Toussaint master for secondary lead sync
+Documentation=file:///data/BUSINESS/Burnilab/BestFootForward/docs/architecture.md
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory=/data/BUSINESS/Burnilab/BestFootForward
+ExecStart=/data/BUSINESS/Burnilab/BestFootForward/.venv/bin/python src/best_foot_forward/mcp_server.py --serve 8765
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

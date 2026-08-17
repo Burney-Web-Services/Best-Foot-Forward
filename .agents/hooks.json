@@ -1,0 +1,15 @@
+{
+  "best-foot-forward-hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.agents/hooks/post_tool_use.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

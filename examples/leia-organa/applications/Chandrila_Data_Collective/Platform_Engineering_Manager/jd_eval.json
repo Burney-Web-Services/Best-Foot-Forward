@@ -1,0 +1,24 @@
+{
+  "score": 59,
+  "summary": "Chandrila Data Collective, Platform Engineering Manager (remote) — a people-management role leading combined Cloud Platform and SRE teams at an AI human-data infrastructure company. The platform substance is a genuine match: reusable Terraform adopted by 24 of 31 teams, an 18-month ECS-to-Kubernetes migration, self-service deployment tooling, and a rebuilt post-incident program map directly onto the posting's Infrastructure Ownership, Developer Experience and SRE Culture pillars, and the posting's \"treat the platform as a product with its own roadmap and adoption metrics\" framing is close to Leia's own stated design philosophy. Two gaps decide it. First, the stack is GCP-native and the posting asks for several years of deep GCP expertise; her cloud experience is entirely AWS, with Terragrunt, Crossplane and ArgoCD also absent. Second, and more consequential, this is a manager role requiring current people leadership — her last formal management was HoloNet Commerce Group, 2011-2016, and her present leadership is IC-shaped: mentorship, incident command, no reports, no headcount. Scored 59/100. Strong platform engineer, cloud-provider mismatch that will read as a hard filter at screening, and a role type misaligned with both her recent record and her stated Principal-IC target.",
+  "url": null,
+  "salary_min": null,
+  "salary_max": null,
+  "salary_currency": "USD",
+  "required_skills": [
+    "platform engineering",
+    "developer experience",
+    "github actions",
+    "observability",
+    "kubernetes",
+    "javascript",
+    "terraform",
+    "python",
+    "soc2",
+    "aws",
+    "typescript",
+    "gcp",
+    "django",
+    "datadog"
+  ]
+}

@@ -1,0 +1,280 @@
+LEIA ORGANA
+Cloud City, Bespin
+leia.organa@example.com | (555) 555-1212
+github.example/leia-organa | linkedin.example/in/leia-organa
+
+SUMMARY
+
+Staff Platform Engineer with 20+ years of experience designing cloud
+platforms, developer infrastructure, distributed systems, and security
+frameworks for organizations supporting millions of users.
+
+Known for simplifying complex systems, leading difficult modernization
+initiatives, mentoring engineers, and building internal platforms that
+allow development teams to move faster with greater confidence.
+
+Equally comfortable discussing distributed systems with architects,
+guiding executives through technical strategy, or pairing with engineers
+to solve production problems.
+
+------------------------------------------------------------
+TECHNICAL SKILLS
+------------------------------------------------------------
+
+Cloud
+AWS, ECS, Lambda, S3, Athena, CloudFront, Route53, Cognito,
+CloudTrail, CloudWatch, IAM
+
+Infrastructure
+Terraform
+Docker
+GitHub Actions
+Jenkins
+Bamboo
+Linux
+Nginx
+
+Languages
+
+Python
+Go
+PHP
+JavaScript
+Bash
+SQL
+
+Data
+
+MySQL
+Redis
+PostgreSQL
+OpenSearch
+DocumentDB
+
+Security
+
+OAuth2
+OIDC
+SAML
+SSO
+Secrets Manager
+Parameter Store
+SOC2
+
+Engineering
+
+Platform Engineering
+Developer Experience
+CI/CD
+Observability
+Incident Response
+Architecture Reviews
+Technical Leadership
+
+------------------------------------------------------------
+PROFESSIONAL EXPERIENCE
+------------------------------------------------------------
+
+THE RESISTANCE
+Ajan Kloss
+
+Staff Platform Engineer
+2022 – Present
+
+Provide technical leadership for the internal developer platform
+supporting more than thirty engineering teams and hundreds of software
+services.
+
+• Led modernization of a decade-old CI/CD platform through Infrastructure
+  as Code, reducing environment rebuild time from multiple days to under
+  ninety minutes.
+
+• Designed a reusable Terraform platform adopted by engineering teams
+  throughout the organization, dramatically reducing configuration drift.
+
+• Replaced an expensive centralized logging solution with an S3/Athena
+  analytics platform that increased retention from weeks to years while
+  reducing operational costs by more than 80%.
+
+• Developed cloud inventory tooling that identified nearly two petabytes
+  of obsolete data, resulting in recurring infrastructure savings.
+
+• Designed a service-to-service authentication framework based on OAuth2
+  and Cognito that standardized authorization patterns across dozens of
+  production services.
+
+• Built self-service deployment and environment management tools that
+  reduced dependency on platform engineers for routine operations.
+
+• Mentored engineers preparing for Senior and Staff promotions through
+  architecture reviews, technical coaching, and career development.
+
+• Served as Incident Commander during several high-severity production
+  outages, coordinating engineering response across multiple teams.
+
+------------------------------------------------------------
+
+CORELLIAN FREIGHT ANALYTICS
+Corellia
+
+Principal Platform Engineer
+
+2019 – 2022
+
+Promoted from Senior Platform Engineer after leading organization-wide
+cloud modernization initiatives.
+
+• Migrated legacy infrastructure into AWS using Terraform and automated
+  deployment pipelines.
+
+• Introduced organization-wide engineering standards for Infrastructure
+  as Code, resulting in significantly improved deployment consistency.
+
+• Created internal platform APIs enabling development teams to provision
+  infrastructure without platform engineering assistance.
+
+• Led migration from legacy authentication systems to enterprise SAML
+  and Single Sign-On.
+
+• Partnered with Product and Operations leadership to prioritize
+  reliability improvements using production metrics instead of anecdotal
+  feedback.
+
+• Designed observability dashboards that reduced production issue
+  detection time by more than 60%.
+
+------------------------------------------------------------
+
+CORELLIAN FREIGHT ANALYTICS
+Corellia
+
+Senior Platform Engineer
+
+2016 – 2019
+
+• Modernized build and deployment pipelines supporting more than 200
+  software repositories.
+
+• Automated environment provisioning through Terraform.
+
+• Reduced software deployment time from hours to minutes.
+
+• Designed disaster recovery procedures for critical production systems.
+
+• Introduced engineering playbooks and operational documentation that
+  significantly reduced onboarding time.
+
+------------------------------------------------------------
+
+HOLONET COMMERCE GROUP
+Coruscant
+
+Director of Engineering
+
+2011 – 2016
+
+Led a twenty-person engineering organization responsible for ecommerce,
+billing systems, analytics, and internal platform services.
+
+• Reorganized engineering into cross-functional delivery teams.
+
+• Introduced Agile planning, automated testing, and continuous delivery.
+
+• Built an enterprise reporting warehouse supporting executive decision
+  making across sales, finance, and operations.
+
+• Directed migration from on-premise infrastructure to hybrid cloud.
+
+• Established architecture review process and engineering technical
+  standards.
+
+• Reduced production incidents while increasing deployment frequency.
+
+------------------------------------------------------------
+
+ALDERAAN CIVIC SYSTEMS
+Alderaan
+
+Software Engineering Manager
+
+2006 – 2011
+
+• Managed development of civic technology applications serving regional
+  government organizations.
+
+• Built engineering hiring process and technical interview program.
+
+• Coached junior engineers into technical leadership positions.
+
+• Oversaw modernization of legacy PHP applications into service-oriented
+  architecture.
+
+------------------------------------------------------------
+
+ALDERAAN CIVIC SYSTEMS
+Alderaan
+
+Software Engineer
+
+2002 – 2006
+
+• Developed web applications supporting licensing, records management,
+  and citizen services.
+
+• Built internal reporting tools used throughout the organization.
+
+• Automated recurring operational processes through scripting.
+
+• Worked closely with business stakeholders to translate operational
+  requirements into software solutions.
+
+------------------------------------------------------------
+SELECTED PROJECTS
+------------------------------------------------------------
+
+Developer Platform Initiative
+
+Created reusable engineering templates, Infrastructure as Code modules,
+and self-service deployment workflows adopted throughout the engineering
+organization.
+
+Cloud Cost Optimization
+
+Designed analytics systems identifying inefficient storage utilization
+and orphaned cloud resources, reducing recurring operational expenses by
+millions of credits.
+
+Identity Modernization
+
+Architected a unified OAuth2-based authentication framework replacing
+multiple legacy authentication approaches while improving security and
+developer experience.
+
+------------------------------------------------------------
+COMMUNITY
+------------------------------------------------------------
+
+• Speaker, Galactic Platform Engineering Summit
+  "Scaling Infrastructure Without Scaling Complexity"
+
+• Mentor, Young Engineers of the New Republic
+
+• Contributor to several internal open-source engineering libraries and
+  developer tooling projects.
+
+------------------------------------------------------------
+EDUCATION
+
+Bachelor of Science
+Electrical Engineering
+
+University of Alderaan
+
+------------------------------------------------------------
+CERTIFICATIONS
+
+AWS Certified Solutions Architect – Professional
+
+Certified Kubernetes Administrator
+
+HashiCorp Terraform Associate
