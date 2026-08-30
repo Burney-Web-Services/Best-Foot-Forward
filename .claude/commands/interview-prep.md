@@ -16,7 +16,7 @@ The user provides a company name (e.g., `/interview-prep Kuat Design Systems`) a
 4. Find and read the tailored resume (.txt file) from the JD's asset directory — search `{output_dir}/*.txt` for files named like `{Company} Resume*.txt` or similar. If found, read it; if not, note that the tailored version doesn't exist yet.
 5. Find and read the tailored letter (.txt file) from the JD's asset directory — search `{output_dir}/*.txt` for files named like `{Company} Cover Letter*.txt` or similar. If found, read it; if not, note that the tailored version doesn't exist yet.
 6. Read `data/_bullets.json` — this is the current bullet inventory. Note any bullets that appear stronger or more complete than what's in the tailored resume, and draw on them for Q&A responses.
-7. Read `memory/user_profile.md`, `memory/project_jobsearch.md`, `memory/feedback_style.md`, and `memory/voice_guide.md` for career context and voice guidance. The voice guide has patterns extracted directly from the seeker's writing — use it when drafting the tell-me-about-yourself and all prose responses.
+7. Read `memory/user_profile.md`, `memory/project_jobsearch.md`, `memory/feedback_style.md`, and `memory/voice_guide.md` for career context and voice guidance. The voice guide has patterns extracted directly from the seeker's writing — use it when drafting the tell-me-about-yourself and all prose responses. Then apply the **Register rules** at the bottom of this file to every generated sentence — they encode corrections seekers have made by hand to previous prep docs.
 8. If the user hasn't already provided the following, ask before generating:
    - Interviewer name and title (if known)
    - What the company told you about this interview's focus or format
@@ -29,16 +29,16 @@ The user provides a company name (e.g., `/interview-prep Kuat Design Systems`) a
    - Most relevant experience thread for this role — lead with the strongest match, name specific accomplishments
    - Earlier career context that connects (prior employers, education thread, as relevant)
    - Why this company and this role specifically — be concrete, not generic
-   This should feel like the seeker talking, not a resume recitation. Reference `memory/feedback_style.md` for voice.
+   This should feel like the seeker talking, not a resume recitation. Reference `memory/feedback_style.md` for voice, and use team framing for team accomplishments (Register rule 1).
 
    **Section 2 — Anticipated Questions + Concise Responses** (5–10 questions)
    Weight toward the JD's specific requirements and the focus areas the company described. For each question:
    - **Question**: written in all-caps, as the interviewer would ask it
    - **Response**: 3–6 sentences. Tie each response to a specific bullet or accomplishment from the tailored resume or `_bullets.json`. Reference the employer and the outcome. Not a script — prep notes.
-   Cover: why leaving the most recent role, technical depth (architecture decisions, distributed systems, scale), team building and management philosophy, cross-functional collaboration, AI/tooling experience, and any gaps or probes that came up in earlier screens.
+   Cover: why leaving the most recent role, technical depth (architecture decisions, distributed systems, scale), team building and management philosophy, cross-functional collaboration, AI/tooling experience, and any gaps or probes that came up in earlier screens. When a gap has to be acknowledged, follow Register rule 3 — concede narrowly, then assert the adjacent competence as demonstrated.
 
    **Section 3 — Questions to Ask** (2–3 questions)
-   Genuine, specific questions. Always include a version of: "What do you love most about working at [Company]?" — this should be the last question. The other 1–2 should draw from the JD and the interview context: team structure, what success looks like, current state of a specific initiative mentioned in the JD. Avoid generic questions.
+   Genuine, specific questions. Always include a version of: "What do you love most about working at [Company]?" — this should be the last question. The other 1–2 should draw from the JD and the interview context: team structure, what success looks like, current state of a specific initiative mentioned in the JD. Avoid generic questions, and use the company's own in-group vocabulary where it exists (Register rule 2) — an employee demonym or internal product name in the closing question reads as homework done.
 
 10. Write `data/session/prep_data.py` with this structure:
     ```python
@@ -80,3 +80,34 @@ The user provides a company name (e.g., `/interview-prep Kuat Design Systems`) a
 - If no tailored resume or letter exists, note that and work from JD and career context alone.
 - Do not ask the user to confirm before writing the files — write and report.
 - The "tell me about yourself" should be the seeker's voice — warm, direct, confident. Not a list of credentials.
+
+## Register rules
+
+Content selection is usually right; **register** is where generated prep drifts from how the
+seeker actually speaks. These three come from a prep doc BFF generated and the seeker then
+hand-edited — the diff is what he corrected, unprompted. Apply them to all prose in Sections 1–3.
+
+1. **Team credit stays with the team.** Any accomplishment involving a team gets "the team" or
+   "we" framing — *"the team owned the platform"*, not *"I led the platform"*. Reserve solo "I"
+   for decisions, judgement calls, and work the seeker personally did. `memory/voice_guide.md`
+   may already state this for written materials; it applies to spoken prep prose too, and
+   generated prep has historically violated it.
+
+2. **Use the company's own vocabulary.** Mine the JD, any `{Name}Research.md` in the asset
+   directory, and company materials for in-group terms — employee demonyms, internal team or
+   product names, the values language the company uses about itself — and use them in Section 3.
+   One word of insider vocabulary signals homework better than a paragraph of enthusiasm.
+
+3. **Scope gap-honesty to actual gaps.** The honesty rule in `memory/feedback_style.md` covers
+   *missing* skills. It must not leak into hedging about adjacent strengths. Concede the gap in
+   one clause, assert the neighbouring competence as demonstrated fact, close on motivation —
+   *"At the management level I regularly demonstrate reasoning about architecture… I'm motivated
+   to close that gap as needed"*, never *"what matters is whether I can reason about
+   architecture"*. Do not adopt the interviewer's framing of the deficit.
+
+**Do not over-claim on the employer's behalf.** The seeker does not work there yet and should not
+sound as though they do — *"their platform seems to be that"*, not *"is exactly that"*.
+
+**Do not manufacture humor.** The best lines in any prep doc a seeker has edited are asides they
+added themselves, and they work because they are real and specific. Keep the register warm and
+let them fill it.
